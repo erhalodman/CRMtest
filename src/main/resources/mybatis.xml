@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--日志-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--分页查询-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor" />
+    </plugins>
+
+    <!--自动起别名-->
+<!--    <typeAliases>-->
+<!--        <package name="com.erha.crmtest.domain"/>-->
+<!--    </typeAliases>-->
+
+    <!--
+        对于海量级别的数据，使用settings配置优化，起不到任何的效果
+        对于数据量较少的项目，对于查询的效率要求的比较低，也没有必要使用settings配置
+
+        如果遇到了海量级别的数据，我们如何去提高查询效率？
+
+        基础操作：
+            对于常用的查询条件的字段，设置索引
+
+        高级操作：
+            使用nosql数据库，redis
+
+        专业操作：搜索引擎
+            Elasticsearch 与 Solr (针对于电商行业使用)
+    -->
+
+    <!--建立数据库连接-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Shanghai"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!--加载dao包中的所有mapper文件-->
+        <package name="com.erha.crmtest.dao"/>
+    </mappers>
+</configuration>
